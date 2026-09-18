@@ -1,3 +1,4 @@
+import numpy as np
 def main():
     
 
@@ -29,7 +30,7 @@ def dls_recursiva(nodo_actual, fin, profundidad_limite, matriz, visitado):
     
     #recorre todos los vecinos del nodo actual y después llama recursivamente a la función para cada vecino no visitado
     #terminando la búsqueda si se encuentra el nodo objetivo
-    for vecino, _ in matriz[nodo_actual]:
+    for vecino, peso in get_vecinos(matriz, nodo_actual):
         
         #agregar el vecino a la lista de visitados en caso de que no haya sido visitado previamente
         if vecino not in visitado:
@@ -40,3 +41,22 @@ def dls_recursiva(nodo_actual, fin, profundidad_limite, matriz, visitado):
                 return [nodo_actual] + resultado
             visitado.pop()
     return None
+
+def get_vecinos(matriz, nodo):
+    vecinos = []
+    x, y = nodo
+    # Definir movimientos posibles (arriba, abajo, izquierda, derecha)
+    movimientos = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    # Recorrer los movimientos posibles
+    for dx, dy in movimientos:
+        
+        nuevo_x, nuevo_y = x + dx, y + dy
+        
+        # Verificar si el vecino está dentro de los límites de la matriz
+        if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1]:
+            # Verificar si el vecino es transitable (no es un obstáculo) suponiendo que los obstáculos están representados por valores distintos de 0(cambiar)
+            if matriz[nuevo_x, nuevo_y] == 0:
+                # Asumiendo costo uniforme de 1(modificar)
+                vecinos.append(((nuevo_x, nuevo_y), 1))
+    return vecinos

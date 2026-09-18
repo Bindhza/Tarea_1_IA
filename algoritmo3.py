@@ -2,7 +2,6 @@ import numpy as np
 import heapq
 
 def main():
-    
 
 if __name__ == "__main__":
     main()
@@ -39,27 +38,22 @@ def a_star(grilla: np.ndarray, inicio, fin, heuristic):
         if celda_actual == fin:
             destino_encontrado = True
             break
+            
+        # Marcar la celda actual como cerrada al expandirla
+        closed_list[celda_actual[0]][celda_actual[1]] = True
         
-        # Generar vecinos (arriba, abajo, izquierda, derecha)
-        vecinos = [(celda_actual[0] - 1, celda_actual[1]), (celda_actual[0] + 1, celda_actual[1]),
-                    (celda_actual[0], celda_actual[1] - 1), (celda_actual[0], celda_actual[1] + 1)]
-        
-        for vecino in vecinos:
-            # Verificar si el vecino está dentro de los límites de la matriz y es transitable
-            if 0 <= vecino[0] < largo and 0 <= vecino[1] < ancho:
+        # Obtener vecinos válidos y transitables
+        for vecino, costo in get_vecinos(matriz, celda_actual):
+            # Solo verificar que no haya sido cerrado/visitado
+            if not closed_list[vecino[0]][vecino[1]]:
+                # g_new ahora usa el costo que entrega get_vecinos
+                g_new = cell_details[celda_actual[0]][celda_actual[1]][0] + costo
+                h_new = heuristic(vecino, fin)
+                f_new = g_new + h_new
                 
-                # verifica que el vecino no sea un obstáculo y que no haya sido visitado
-                # esto teniendo en cuenta que la matriz tiene 0 para celdas transitables y un valor distinto de 0 para obstáculos
-                if matriz[vecino[0]][vecino[1]] == 0 and not closed_list[vecino[0]][vecino[1]]:
-                    # Calcular los costos g, h y f para el vecino, pero con costo g incrementado en 1, o sea el costo no es variable(a modificar)
-                    g_new = cell_details[celda_actual[0]][celda_actual[1]][0] + 1
-                    h_new = heuristic(vecino, fin)
-                    f_new = g_new + h_new
-                    
-                    # Si el vecino no ha sido visitado o si el nuevo costo f es menor que el costo f previamente registrado, actualizar la open_list y cell_details
-                    if cell_details[vecino[0]][vecino[1]] is None or cell_details[vecino[0]][vecino[1]][2] > f_new:
-                        cell_details[vecino[0]][vecino[1]] = (g_new, h_new, f_new, celda_actual)
-                        heapq.heappush(open_list, (f_new, vecino))
+                if cell_details[vecino[0]][vecino[1]] is None or cell_details[vecino[0]][vecino[1]][2] > f_new:
+                    cell_details[vecino[0]][vecino[1]] = (g_new, h_new, f_new, celda_actual)
+                    heapq.heappush(open_list, (f_new, vecino))
 
     # Verificar si se encontró un camino al destino, si no se encontró, retornar None
     if not destino_encontrado:
@@ -81,3 +75,22 @@ def a_star(grilla: np.ndarray, inicio, fin, heuristic):
     costo_total = cell_details[fin[0]][fin[1]][0]
     
     return camino
+
+def get_vecinos(matriz, nodo):
+    vecinos = []
+    x, y = nodo
+    # Definir movimientos posibles (arriba, abajo, izquierda, derecha)
+    movimientos = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    # Recorrer los movimientos posibles
+    for dx, dy in movimientos:
+        
+        nuevo_x, nuevo_y = x + dx, y + dy
+        
+        # Verificar si el vecino está dentro de los límites de la matriz
+        if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1]:
+            # Verificar si el vecino es transitable (no es un obstáculo) suponiendo que los obstáculos están representados por valores distintos de 0(cambiar)
+            if matriz[nuevo_x, nuevo_y] == 0:
+                # Asumiendo costo uniforme de 1(modificar)
+                vecinos.append(((nuevo_x, nuevo_y), 1))
+    return vecinos
