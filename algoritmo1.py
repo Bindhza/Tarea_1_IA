@@ -1,11 +1,6 @@
 import numpy as np
 import heapq
-
-def main():
-    
-
-if __name__ == "__main__":
-    main()
+from funciones_auxiliar import get_vecinos
 
 #algoritmo para recorrer grilla con el algoritmo de Busqueda de Costo Uniforme
 def costo_uniforme_busqueda(grilla, inicio, fin):
@@ -51,22 +46,4 @@ def costo_uniforme_reconstruccion(visitado, fin):
         nodo_actual = visitado[nodo_actual][1]
         
     #retornar el camino reconstruido en orden inverso (del nodo inicial al nodo objetivo)
-    return reconstruido[::-1]  
-
-
-# funcion para obtener los vecinos de un nodo en la grilla
-def get_vecinos(matriz, nodo):
-    vecinos = []
-    x, y = nodo
-    movimientos = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-    
-    for dx, dy in movimientos:
-        nuevo_x, nuevo_y = x + dx, y + dy
-        
-        # Verificar límites de la grilla
-        if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1]:
-            # Verificar que no sea obstáculo (0 = libre)
-            if matriz[nuevo_x, nuevo_y] == 0:
-                vecinos.append(((nuevo_x, nuevo_y), 1))  # Costo 1 por paso
-                
-    return vecinos
+    return reconstruido[::-1]

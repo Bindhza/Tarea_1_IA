@@ -1,10 +1,6 @@
 import numpy as np
 import heapq
-
-def main():
-
-if __name__ == "__main__":
-    main()
+from funciones_auxiliar import get_vecinos
 
 def a_star(grilla: np.ndarray, inicio, fin, heuristic):
     matriz = grilla
@@ -75,22 +71,3 @@ def a_star(grilla: np.ndarray, inicio, fin, heuristic):
     costo_total = cell_details[fin[0]][fin[1]][0]
     
     return camino
-
-def get_vecinos(matriz, nodo):
-    vecinos = []
-    x, y = nodo
-    # Definir movimientos posibles (arriba, abajo, izquierda, derecha)
-    movimientos = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-    
-    # Recorrer los movimientos posibles
-    for dx, dy in movimientos:
-        
-        nuevo_x, nuevo_y = x + dx, y + dy
-        
-        # Verificar si el vecino está dentro de los límites de la matriz
-        if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1]:
-            # Verificar si el vecino es transitable (no es un obstáculo) suponiendo que los obstáculos están representados por valores distintos de 0(cambiar)
-            if matriz[nuevo_x, nuevo_y] == 0:
-                # Asumiendo costo uniforme de 1(modificar)
-                vecinos.append(((nuevo_x, nuevo_y), 1))
-    return vecinos
