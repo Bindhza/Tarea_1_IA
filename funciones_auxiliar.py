@@ -14,8 +14,9 @@ def get_vecinos(matriz, nodo):
         # Verificar si el vecino está dentro de los límites de la matriz
         if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1]:
             # Verificar si el vecino es transitable (no es un obstáculo) sabiendo que los obstáculos están representados por valores negativos
-            if matriz[nuevo_x, nuevo_y] > 0:
-                vecinos.append(((nuevo_x, nuevo_y), matriz[nuevo_x, nuevo_y]))  # Costo basado en el valor de la celda
+            if matriz[nuevo_x, nuevo_y] > 0 or matriz[nuevo_x, nuevo_y] == -3:
+                costo = 1 if matriz[nuevo_x, nuevo_y] == -3 else matriz[nuevo_x, nuevo_y]
+                vecinos.append(((nuevo_x, nuevo_y), costo))  # Costo basado en el valor de la celda
     return vecinos
 
 
@@ -23,7 +24,7 @@ def propagacion_de_incendio(matriz):
     """
     Propaga el fuego un paso en el tiempo.
     - 0: Muro (no se quema)
-    - -1: Fuego existente
+    - -1: Fuego
     - > 0: Terreno transitable (susceptible al fuego)
     Retorna una nueva matriz con el fuego propagado.
     """
@@ -47,7 +48,7 @@ def propagacion_de_incendio(matriz):
                 if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1] and matriz[nuevo_x, nuevo_y] > 0:
                     vecinos_incendiables.append((nuevo_x, nuevo_y)) 
             
-            num_a_quemar = min(2, len(vecinos_incendiables))  # Determinar cuántos vecinos se quemarán (máximo 2)
+            num_a_quemar = min(random.randint(2, 4), len(vecinos_incendiables))  # Determinar cuántos vecinos se quemarán (máximo 4)
             
             # Seleccionar aleatoriamente los vecinos a quemar
             if num_a_quemar > 0:

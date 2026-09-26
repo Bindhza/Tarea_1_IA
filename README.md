@@ -16,4 +16,6 @@
 
 0 = Muralla
 -1 = Fuego
+1 = Camino
+
 
