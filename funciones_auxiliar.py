@@ -48,7 +48,7 @@ def propagacion_de_incendio(matriz):
                 if 0 <= nuevo_x < matriz.shape[0] and 0 <= nuevo_y < matriz.shape[1] and matriz[nuevo_x, nuevo_y] > 0:
                     vecinos_incendiables.append((nuevo_x, nuevo_y)) 
             
-            num_a_quemar = min(random.randint(2, 4), len(vecinos_incendiables))  # Determinar cuántos vecinos se quemarán (máximo 4)
+            num_a_quemar = min(random.randint(2, 3), len(vecinos_incendiables))  # Determinar cuántos vecinos se quemarán (máximo 4)
             
             # Seleccionar aleatoriamente los vecinos a quemar
             if num_a_quemar > 0:

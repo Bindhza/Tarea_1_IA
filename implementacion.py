@@ -71,14 +71,28 @@ def simular_profundidad_limitada(mapa, posiciones_iniciales, meta=None, limite_p
     
     bucle_profundidad_limitada = True
     contador_propagacion = 0  # Contador para controlar la propagación del fuego
+    iteracion = 0
+    max_iteraciones = 150  # Límite de seguridad para evitar bucles infinitos
     
     # Bucle principal de simulación
     while bucle_profundidad_limitada:
+        iteracion += 1
+        if iteracion >= max_iteraciones:
+            print(f"Límite máximo de {max_iteraciones} iteraciones alcanzado.")
+            # Cualquier agente que siga atrapado sin haber escapado se marca como no rescatado
+            for i, agente in enumerate(agenetes_profundidad_limitada):
+                if agente[0] and not agente[3]:
+                    agenetes_profundidad_limitada[i] = (False, agente[1], agente[2], True, [], agente[5])
+                    print(f"Agente {i} no logró salir a tiempo y quedó atrapado en ({agente[1]}, {agente[2]}).")
+            break
         
         # Lógica de propagación de fuego por el mapa
-        if contador_propagacion >= random.randint(1, 3):  # Propaga el fuego cada 1 o 3 iteraciones
+        fuego_avanzo = False
+        if contador_propagacion >= random.randint(2, 3):  # Propaga el fuego cada 2 o 3 iteraciones
             contador_propagacion = 0  # Reiniciar el contador
-            mapa_simulacion = propagacion_de_incendio(mapa_simulacion)
+            mapa_con_fuego_nuevo = propagacion_de_incendio(mapa_simulacion)
+            fuego_avanzo = not np.array_equal(mapa_con_fuego_nuevo, mapa_simulacion)
+            mapa_simulacion = mapa_con_fuego_nuevo
             
             # Verificar si el fuego recién propagado alcanzó a algún agente en su posición actual
             for i, agente in enumerate(agenetes_profundidad_limitada):
@@ -144,8 +158,68 @@ def simular_profundidad_limitada(mapa, posiciones_iniciales, meta=None, limite_p
                         agenetes_profundidad_limitada[i] = (False, agente_pos_x, agente_pos_y, True, [], costo_acumulado)
                         print(f"Agente {i} atrapado en ({agente_pos_x}, {agente_pos_y}) murió por el fuego.")
         
-        # Condición para terminar el bucle: se detiene solo cuando todos hayan escapado o hayan muerto
-        bucle_profundidad_limitada = any(agente[0] and not agente[3] for agente in agenetes_profundidad_limitada)
+        # Buscamos qué agentes siguen vivos y activos pero ya no tienen un camino disponible hacia la salida
+        agentes_vivos_sin_camino = []
+        for i in range(len(agenetes_profundidad_limitada)):
+            agente = agenetes_profundidad_limitada[i]
+            esta_vivo = agente[0]
+            ha_terminado = agente[3]
+            camino_pendiente = agente[4]
+            # Si el agente está vivo, no ha terminado y no tiene camino pendiente, se agrega a la lista de agentes atrapados sin camino
+            if esta_vivo and not ha_terminado and len(camino_pendiente) == 0:
+                agentes_vivos_sin_camino.append(i)
+        
+        # se buscan todos los agentes que siguen vivos y todavía no han terminado (ni escaparon ni murieron)
+        agentes_vivos_totales = []
+        for i in range(len(agenetes_profundidad_limitada)):
+            agente = agenetes_profundidad_limitada[i]
+            esta_vivo = agente[0]
+            ha_terminado = agente[3]
+            if esta_vivo and not ha_terminado:
+                agentes_vivos_totales.append(i)
+        
+        # Si el fuego no avanzó este turno y todos los agentes activos están atrapados sin ruta
+        if not fuego_avanzo and len(agentes_vivos_sin_camino) == len(agentes_vivos_totales) and len(agentes_vivos_totales) > 0:
+            fuego_puede_crecer = False
+            filas_mapa = mapa_simulacion.shape[0]
+            columnas_mapa = mapa_simulacion.shape[1]
+            posiciones_fuego = np.argwhere(mapa_simulacion == -1)
+            movimientos_fuego = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+            # Revisamos si alguna casilla de fuego tiene al lado un camino transitable libre
+            for fuego_x, fuego_y in posiciones_fuego:
+                for desplazamiento_x, desplazamiento_y in movimientos_fuego:
+                    vecino_x = fuego_x + desplazamiento_x
+                    vecino_y = fuego_y + desplazamiento_y
+                    
+                    # Verificamos que la celda vecina esté dentro de los límites del mapa
+                    if 0 <= vecino_x < filas_mapa and 0 <= vecino_y < columnas_mapa:
+                        # Si el vecino es un camino transitable (> 0), el fuego aún se puede expandir
+                        if mapa_simulacion[vecino_x, vecino_y] > 0:
+                            fuego_puede_crecer = True
+                            break
+                if fuego_puede_crecer:
+                    break
+
+            # Si el fuego ya no puede propagarse más a ninguna parte, los agentes atrapados mueren
+            if not fuego_puede_crecer:
+                for idx in agentes_vivos_sin_camino:
+                    agente_atrapado = agenetes_profundidad_limitada[idx]
+                    costo_acumulado_agente = agente_atrapado[5]
+                    agenetes_profundidad_limitada[idx] = (False, agente_atrapado[1], agente_atrapado[2], True, [], costo_acumulado_agente)
+                    print(f"El fuego se extinguió sin poder avanzar más. Agente {idx} quedó atrapado en ({agente_atrapado[1]}, {agente_atrapado[2]}) y murió.")
+        
+        # Condición para continuar o terminar el bucle principal:
+        # Se detiene cuando ya no quede ningún agente activo (todos escaparon o murieron)
+        quedan_agentes_activos = False
+        for agente in agenetes_profundidad_limitada:
+            esta_vivo = agente[0]
+            ha_terminado = agente[3]
+            if esta_vivo and not ha_terminado:
+                quedan_agentes_activos = True
+                break
+        
+        bucle_profundidad_limitada = quedan_agentes_activos
     
     print("Búsqueda en Profundidad Limitada finalizada.")
     print("#"*50)
@@ -187,11 +261,18 @@ def posiciones_iniciales_aleatorias(mapa, num_agentes):
 
 def main():
     # Ejecutar la simulación pasándole el mapa y las posiciones de los agentes
-    posiciones = posiciones_iniciales_aleatorias(mapa1, 3)
-    # posiciones = [(1, 1), (8, 1), (11, 1)]  # Posiciones iniciales fijas para pruebas
+    # posiciones = posiciones_iniciales_aleatorias(mapa1, 3)
+    posiciones = [(1, 1), (7, 1), (1, 11)]  # Posiciones iniciales fijas para pruebas
     
-    
+    print("Mapa 1: Alta densidad de obstáculos / Cuello de botella")
+    print("="*50)
     simular_profundidad_limitada(mapa1, posiciones)
+    print("\nMapa 2: Obstáculos dispersos / Espacios abiertos")
+    print("="*50)
+    simular_profundidad_limitada(mapa2, posiciones)
+    print("\nMapa 3: Baja densidad / Dispersión abierta")
+    print("="*50)
+    simular_profundidad_limitada(mapa3, posiciones)
 
 if __name__ == '__main__':
     main()
