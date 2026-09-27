@@ -1,0 +1,200 @@
+======================================================================
+RESUMEN DE BENCHMARKING (80 REPETICIONES) - Búsqueda de Costo Uniforme (UCS)
+Fecha y hora de registro:    2026-09-27 03:56:00
+Cantidad total de agentes:   80
+======================================================================
+
+[Mapa 1 (Alta densidad / Cuello de botella)]
+  • Tasa de supervivencia:
+      - Promedio:                            41.38% (33.1/80 agentes)
+      - Desviación estándar (supervivencia): 10.25%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               150.97 turnos
+      - Desviación estándar (tiempo):        9.34 turnos
+      - Valor mínimo:                        124 turnos
+      - Valor máximo:                        179 turnos
+
+[Mapa 2 (Densidad media / Laberinto corporativo)]
+  • Tasa de supervivencia:
+      - Promedio:                            57.11% (45.69/80 agentes)
+      - Desviación estándar (supervivencia): 10.66%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               96.54 turnos
+      - Desviación estándar (tiempo):        8.88 turnos
+      - Valor mínimo:                        79 turnos
+      - Valor máximo:                        125 turnos
+
+[Mapa 3 (Baja densidad / Dispersión abierta)]
+  • Tasa de supervivencia:
+      - Promedio:                            58.97% (47.17/80 agentes)
+      - Desviación estándar (supervivencia): 9.88%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               86.85 turnos
+      - Desviación estándar (tiempo):        4.1 turnos
+      - Valor mínimo:                        78 turnos
+      - Valor máximo:                        98 turnos
+
+----------------------------------------------------------------------
+Tiempo total transcurrido (Búsqueda de Costo Uniforme (UCS)): 0 horas, 7 minutos, 33.4 segundos (Total: 453.4 s)
+----------------------------------------------------------------------
+
+======================================================================
+RESUMEN DE BENCHMARKING (80 REPETICIONES) - Búsqueda en Amplitud (BFS)
+Fecha y hora de registro:    2026-09-27 04:02:17
+Cantidad total de agentes:   80
+======================================================================
+
+[Mapa 1 (Alta densidad / Cuello de botella)]
+  • Tasa de supervivencia:
+      - Promedio:                            53.92% (43.14/80 agentes)
+      - Desviación estándar (supervivencia): 2.35%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               112.15 turnos
+      - Desviación estándar (tiempo):        0.95 turnos
+      - Valor mínimo:                        110 turnos
+      - Valor máximo:                        115 turnos
+
+[Mapa 2 (Densidad media / Laberinto corporativo)]
+  • Tasa de supervivencia:
+      - Promedio:                            75.92% (60.74/80 agentes)
+      - Desviación estándar (supervivencia): 3.71%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               81.34 turnos
+      - Desviación estándar (tiempo):        5.02 turnos
+      - Valor mínimo:                        74 turnos
+      - Valor máximo:                        93 turnos
+
+[Mapa 3 (Baja densidad / Dispersión abierta)]
+  • Tasa de supervivencia:
+      - Promedio:                            92.5% (74.0/80 agentes)
+      - Desviación estándar (supervivencia): 3.46%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               72.6 turnos
+      - Desviación estándar (tiempo):        1.51 turnos
+      - Valor mínimo:                        72 turnos
+      - Valor máximo:                        80 turnos
+
+----------------------------------------------------------------------
+Tiempo total transcurrido (Búsqueda en Amplitud (BFS)): 0 horas, 6 minutos, 16.29 segundos (Total: 376.29 s)
+----------------------------------------------------------------------
+
+======================================================================
+RESUMEN DE BENCHMARKING (80 REPETICIONES) - Búsqueda A* (A-Star)
+Fecha y hora de registro:    2026-09-27 04:04:23
+Cantidad total de agentes:   80
+======================================================================
+
+[Mapa 1 (Alta densidad / Cuello de botella)]
+  • Tasa de supervivencia:
+      - Promedio:                            39.48% (31.59/80 agentes)
+      - Desviación estándar (supervivencia): 10.72%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               149.39 turnos
+      - Desviación estándar (tiempo):        10.44 turnos
+      - Valor mínimo:                        113 turnos
+      - Valor máximo:                        183 turnos
+
+[Mapa 2 (Densidad media / Laberinto corporativo)]
+  • Tasa de supervivencia:
+      - Promedio:                            59.3% (47.44/80 agentes)
+      - Desviación estándar (supervivencia): 9.41%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               93.36 turnos
+      - Desviación estándar (tiempo):        6.62 turnos
+      - Valor mínimo:                        79 turnos
+      - Valor máximo:                        108 turnos
+
+[Mapa 3 (Baja densidad / Dispersión abierta)]
+  • Tasa de supervivencia:
+      - Promedio:                            59.12% (47.3/80 agentes)
+      - Desviación estándar (supervivencia): 9.08%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               84.86 turnos
+      - Desviación estándar (tiempo):        4.36 turnos
+      - Valor mínimo:                        75 turnos
+      - Valor máximo:                        97 turnos
+
+----------------------------------------------------------------------
+Tiempo total transcurrido (Búsqueda A* (A-Star)): 0 horas, 2 minutos, 6.65 segundos (Total: 126.65 s)
+----------------------------------------------------------------------
+
+======================================================================
+RESUMEN DE BENCHMARKING (80 REPETICIONES) - Greedy Best-First Search
+Fecha y hora de registro:    2026-09-27 04:05:02
+Cantidad total de agentes:   80
+======================================================================
+
+[Mapa 1 (Alta densidad / Cuello de botella)]
+  • Tasa de supervivencia:
+      - Promedio:                            90.08% (72.06/80 agentes)
+      - Desviación estándar (supervivencia): 19.07%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               120.51 turnos
+      - Desviación estándar (tiempo):        9.44 turnos
+      - Valor mínimo:                        100 turnos
+      - Valor máximo:                        148 turnos
+
+[Mapa 2 (Densidad media / Laberinto corporativo)]
+  • Tasa de supervivencia:
+      - Promedio:                            49.53% (39.62/80 agentes)
+      - Desviación estándar (supervivencia): 7.61%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               78.94 turnos
+      - Desviación estándar (tiempo):        6.1 turnos
+      - Valor mínimo:                        68 turnos
+      - Valor máximo:                        101 turnos
+
+[Mapa 3 (Baja densidad / Dispersión abierta)]
+  • Tasa de supervivencia:
+      - Promedio:                            34.22% (27.38/80 agentes)
+      - Desviación estándar (supervivencia): 7.91%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               77.45 turnos
+      - Desviación estándar (tiempo):        8.82 turnos
+      - Valor mínimo:                        58 turnos
+      - Valor máximo:                        94 turnos
+
+----------------------------------------------------------------------
+Tiempo total transcurrido (Greedy Best-First Search): 0 horas, 0 minutos, 38.55 segundos (Total: 38.55 s)
+----------------------------------------------------------------------
+
+======================================================================
+RESUMEN DE BENCHMARKING (80 REPETICIONES) - Algoritmo Genético
+Fecha y hora de registro:    2026-09-27 05:16:11
+Cantidad total de agentes:   80
+======================================================================
+
+[Mapa 1 (Alta densidad / Cuello de botella)]
+  • Tasa de supervivencia:
+      - Promedio:                            0.0% (0.0/80 agentes)
+      - Desviación estándar (supervivencia): 0.0%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               0.0 turnos
+      - Desviación estándar (tiempo):        0.0 turnos
+      - Valor mínimo:                        0 turnos
+      - Valor máximo:                        0 turnos
+
+[Mapa 2 (Densidad media / Laberinto corporativo)]
+  • Tasa de supervivencia:
+      - Promedio:                            32.45% (25.96/80 agentes)
+      - Desviación estándar (supervivencia): 7.65%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               117.99 turnos
+      - Desviación estándar (tiempo):        7.47 turnos
+      - Valor mínimo:                        99 turnos
+      - Valor máximo:                        137 turnos
+
+[Mapa 3 (Baja densidad / Dispersión abierta)]
+  • Tasa de supervivencia:
+      - Promedio:                            33.05% (26.44/80 agentes)
+      - Desviación estándar (supervivencia): 7.8%
+  • Distribución del tiempo total de despeje (turnos):
+      - Media:                               111.79 turnos
+      - Desviación estándar (tiempo):        6.72 turnos
+      - Valor mínimo:                        99 turnos
+      - Valor máximo:                        132 turnos
+
+----------------------------------------------------------------------
+Tiempo total transcurrido (Algoritmo Genético): 1 horas, 11 minutos, 9.04 segundos (Total: 4269.04 s)
+----------------------------------------------------------------------
+
