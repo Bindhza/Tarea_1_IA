@@ -54,16 +54,21 @@ def a_star(grilla: np.ndarray, inicio, fin, heuristic=heuristica_manhattan):
             
         closed_list[celda_actual[0]][celda_actual[1]] = True
         
+        # Verificar si se ha alcanzado la celda de destino
         if celda_actual == fin:
             destino_encontrado = True
             break
         
+        # Expandir vecinos de la celda actual y calcular sus costos
         for vecino, costo in get_vecinos(matriz, celda_actual):
+            # Solo considerar vecinos que no estén en la lista cerrada
             if not closed_list[vecino[0]][vecino[1]]:
+                # Calcular costos g, h y f para el vecino
                 g_new = cell_details[celda_actual[0]][celda_actual[1]][0] + costo
                 h_new = heuristic(vecino, fin)
                 f_new = g_new + h_new
                 
+                # Actualizar los detalles de la celda si es un camino más corto o si aún no ha sido visitada
                 if cell_details[vecino[0]][vecino[1]] is None or cell_details[vecino[0]][vecino[1]][2] > f_new:
                     cell_details[vecino[0]][vecino[1]] = (g_new, h_new, f_new, celda_actual)
                     heapq.heappush(open_list, (f_new, vecino))

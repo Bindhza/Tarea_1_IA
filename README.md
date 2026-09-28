@@ -1,18 +1,12 @@
 # Tarea 1: Escape de la Torre - Inteligencia Artificial
 
-Simulación de evacuación y navegación multiagente ante un incendio dinámico en un edificio de múltiples niveles, evaluando el desempeño de algoritmos bajo tres paradigmas de búsqueda y optimización.
-
----
-
-## Integrantes
-- Integrante 1: [Nombre y Apellido] - [RUT / Correo]
-- Integrante 2: [Nombre y Apellido] - [RUT / Correo]
-- Integrante 3: [Nombre y Apellido] - [RUT / Correo]
+## Nombre
+- Benjamin Poblete
 
 ---
 
 ## Requisitos y Dependencias
-El proyecto está implementado en **Python 3**. La única dependencia externa requerida es `numpy`.
+La única dependencia externa requerida es `numpy`.
 
 Para instalar las dependencias:
 ```bash
@@ -23,9 +17,9 @@ pip install numpy
 
 ## Reglas para Ejecutar el Código
 
-> **Nota sobre persistencia:** Todos los resultados, datos del algoritmo y métricas de evacuación se imprimen en pantalla y **se guardan automáticamente en `resultados.txt`**, asegurando que la información de cada ejecución quede guardada de forma persistente para la confección del informe.
+> **Nota sobre persistencia:** Todos los resultados, datos del algoritmo y métricas de evacuación se imprimen en pantalla y **se guardan automáticamente en el archivo `resultados.txt`**.
 
-El punto de entrada principal del sistema es `implementacion.py`. Permite ejecutar el benchmarking controlado (80 repeticiones por defecto, configurable) en los 3 mapas de prueba para cada algoritmo.
+El archivo principal del sistema es `implementacion.py`. Permite ejecutar el benchmarking controlado (80 repeticiones por defecto, configurable) en los 3 mapas de prueba para cada algoritmo.
 
 ### Modo Interactivo (Menú):
 ```bash
@@ -57,26 +51,26 @@ python3 implementacion.py all 80
 
 ---
 
-## Paradigmas y Algoritmos Implementados
+## Algoritmos Implementados
 
 1. **Búsqueda No Informada:**
-   - **Búsqueda de Costo Uniforme (UCS)** (`algoritmo1.py`): Explora expandiendo el nodo con menor costo acumulado $g(n)$, optimizado con descarte en $O(1)$ de entradas obsoletas en la cola de prioridad.
-   - **Búsqueda en Amplitud (BFS)** (`algoritmo2.py`): Explora sistemáticamente por niveles utilizando una cola FIFO (`collections.deque`), garantizando encontrar el camino con la menor cantidad de pasos/transiciones ortogonales hacia la salida.
+   - **Búsqueda de Costo Uniforme (UCS)** (`algoritmo1.py`)
+   - **Búsqueda en Amplitud (BFS)** (`algoritmo2.py`)
 
 2. **Búsqueda Informada (Heurística Admisible):**
-   - **Búsqueda A*** (`algoritmo3.py`): Minimiza $f(n) = g(n) + h(n)$ garantizando rutas de costo mínimo bajo la heurística admisible de distancia Manhattan ortogonal.
-   - **Greedy Best-First Search** (`algoritmo4.py`): Búsqueda voraz guiada exclusivamente por la heurística admisible de Manhattan $h(n)$ hacia la salida.
+   - **Búsqueda A*** (`algoritmo3.py`)
+   - **Greedy Best-First Search** (`algoritmo4.py`)
 
 3. **Optimización Bioinspirada:**
-   - **Algoritmo Genético Adaptativo** (`algoritmo5.py`): Algoritmo genético con selección por torneo, cruce en un punto, mutación y elitismo. Implementa planificación continua por horizonte deslizante, retornando el mejor avance hacia la salida para evitar que los agentes se queden congelados.
+   - **Algoritmo Genético Adaptativo** (`algoritmo5.py`)
 
 ---
 
 ## Entornos de Prueba (Mapas 50x50)
 
-- **Mapa 1 (Alta densidad / Cuello de botella):** Pasillos angostos con convergencia forzada hacia un único pasaje central hacia la salida, generando alta saturación.
-- **Mapa 2 (Densidad media / Laberinto corporativo):** Conjunto de salas conectadas por intersecciones y cruces con densidad intermedia.
-- **Mapa 3 (Baja densidad / Dispersión abierta):** Entorno abierto con columnas y tabiques aislados que permiten múltiples rutas alternativas.
+- **Mapa 1 (Alta densidad / Cuello de botella)** 
+- **Mapa 2 (Densidad media / Laberinto corporativo)**
+- **Mapa 3 (Baja densidad / Dispersión abierta)**
 
 ---
 
@@ -96,4 +90,3 @@ python3 implementacion.py all 80
 - Greedy Best First Search : https://www.geeksforgeeks.org/dsa/greedy-best-first-search-algorithm/
 - Algoritmo Genético: https://www.datacamp.com/es/tutorial/genetic-algorithm-python
 
-*la ia generativa ha sido utilizada para temas conceptuales, explicaciones, ayuda a la lectura de códigos extraídos de internet o facilitar la documentación, es decir, como apoyo del aprendizaje, pero en ningún caso fue usada para crear código*

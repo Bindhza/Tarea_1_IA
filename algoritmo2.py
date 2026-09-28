@@ -36,7 +36,7 @@ def busqueda_amplitud(grilla, inicio, fin):
     padres = {inicio: (None, 0)}
     destino_encontrado = False
     
-    while cola:
+    while cola: 
         nodo_actual = cola.popleft()
         
         if nodo_actual == fin:
